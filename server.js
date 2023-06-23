@@ -1,20 +1,19 @@
 const express = require('express')
 
 const logger = require('./middlewares/logger')
+const sessions = require('./middlewares/sessions')
 
 const usersController =require('./controllers/users_controller')
+const sessionsController = require('./controllers/sessions_controller')
 
 
 const app = express()
-const port = process.env.PORT || 4002;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`listening on http://localhost:${port}`))
 
 app.use(logger)
 app.use(express.json())
+app.use(sessions)
 app.use('/api/users', usersController)
-
-
-app.get('/test',(req,res) => {
-    res.json('It works!')
-})
+app.use('/api/sessions', sessionsController)
