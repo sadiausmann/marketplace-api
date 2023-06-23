@@ -30,8 +30,23 @@ router.get('/',(req, res) => {
         User
             .findById(userId)
             .then(email => res.json({result: 'successful', email: email}))
+            
     } else {
         res.json({})
     }
 })
+
+router.delete('/', (req, res) => {
+    // set cookie to expire immediately
+    req.session.cookie.maxAge = 0;
+    // destroy session
+    req.session.destroy(err => {
+      if (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Could not logout' })
+      } else {
+        res.json({ success: true })
+      }
+    })
+  })
 module.exports = router 
