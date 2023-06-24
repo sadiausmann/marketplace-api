@@ -8,7 +8,7 @@ const sessionsController = require('./controllers/sessions_controller')
 
 
 const app = express()
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 app.listen(port, () => console.log(`listening on http://localhost:${port}`))
 
@@ -17,3 +17,7 @@ app.use(express.json())
 app.use(sessions)
 app.use('/api/users', usersController)
 app.use('/api/sessions', sessionsController)
+
+app.get('/api/message', (req, res) => {
+    res.json({ message: 'Hello from the backend' });
+  });

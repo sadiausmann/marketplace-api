@@ -37,16 +37,14 @@ router.get('/',(req, res) => {
 })
 
 router.delete('/', (req, res) => {
-    // set cookie to expire immediately
-    req.session.cookie.maxAge = 0;
-    // destroy session
-    req.session.destroy(err => {
-      if (err) {
-        console.error(err)
-        res.status(500).json({ error: 'Could not logout' })
-      } else {
-        res.json({ success: true })
-      }
-    })
-  })
+  req.session.destroy(error => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Could not logout' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
+
 module.exports = router 
