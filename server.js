@@ -5,6 +5,7 @@ const sessions = require('./middlewares/sessions')
 
 const usersController =require('./controllers/users_controller')
 const sessionsController = require('./controllers/sessions_controller')
+const productsController = require('./controllers/products_controller')
 
 
 const app = express()
@@ -15,6 +16,7 @@ app.listen(port, () => console.log(`listening on http://localhost:${port}`))
 app.use(logger)
 app.use(express.json())
 app.use(sessions)
+app.use('/api/products', productsController)
 app.use('/api/users', usersController)
 app.use('/api/sessions', sessionsController)
 
