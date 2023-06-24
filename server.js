@@ -20,6 +20,6 @@ app.use('/api/products', productsController)
 app.use('/api/users', usersController)
 app.use('/api/sessions', sessionsController)
 
-app.get('/api/message', (req, res) => {
-    res.json({ message: 'Hello from the backend' });
-  });
+// app.get('/api/message', (req, res) => {
+//     res.json({ message: 'Hello from the backend' });
+//   });
