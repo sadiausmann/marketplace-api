@@ -10,7 +10,7 @@ const User = {
 
   findByEmail: (email) => {
     const sql = `
-    SELECT * FROM users WHERE email = $1
+      SELECT * FROM users WHERE email = $1
     `;
 
     return db.query(sql, [email]).then((dbRes) => dbRes.rows[0]);

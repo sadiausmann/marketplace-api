@@ -13,15 +13,15 @@ const Product = {
         // }),
     },
 
-    create: (name, image_url, category, price, description, location) => {
+    create: (name, image_url, category, price, description, location, userId) => {
         const sql= `
-        INSERT INTO products(name, image_url, category, price, description, location)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO products(name, image_url, category, price, description, location, user_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING  *
         `
 
         return db
-            .query(sql,[name, image_url, category, price, description, location])
+            .query(sql,[name, image_url, category, price, description, location, userId])
             .then(dbRes => dbRes.rows[0])
     },
 
