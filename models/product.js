@@ -29,8 +29,44 @@ const Product = {
         const sql = 'DELETE FROM products WHERE id = $1'
 
         return db.query(sql, [productId])
-    }
-}
+    },
 
+    findByCategory: (category) => {
+  const sql = 'SELECT * FROM products WHERE category = $1';
 
-module.exports = Product
+  return db
+    .query(sql, [category])
+    // .then(dbRes => dbRes.rows)
+    .then(dbRes => {
+        console.log('Products found:', dbRes.rows);
+        return dbRes.rows;
+      })
+    
+},
+    
+      findByPriceRange: (minPrice, maxPrice) => {
+        const sql = 'SELECT * FROM products WHERE price BETWEEN $1 AND $2';
+    
+        return db
+          .query(sql, [minPrice, maxPrice])
+          .then(dbRes => dbRes.rows)
+      },
+    
+      findByLocation: (location) => {
+        const sql = 'SELECT * FROM products WHERE location = $1';
+    
+        return db
+          .query(sql, [location])
+          .then(dbRes => dbRes.rows)
+      },
+    
+      findByName: (name) => {
+        const sql = 'SELECT * FROM products WHERE name = $1';
+    
+        return db
+          .query(sql, [name])
+          .then(dbRes => dbRes.rows)
+      }
+    };
+    
+    module.exports = Product;

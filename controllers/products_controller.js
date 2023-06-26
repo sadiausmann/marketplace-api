@@ -22,14 +22,61 @@ router.post('/',(req,res) => {
         .then(product => res.json(product))
 })
 
-router.delete('/:2',(req,res) => {
+router.delete('/:id',(req,res) => {
     const productId = req.params.id
     
     Product
         .delete(productId)
         .then(() => res.json({message: 'deleted successfully'}))
 })
-module.exports = router
+
+
+// Search routes:
+
+router.get('/search/category/:category', (req, res) => {
+    const category = req.params.category;
+  
+    Product
+      .findByCategory(category)
+        .then(products => res.json(products))
+        .catch(error => {
+            console.error('Error occurred while searching products by category:', error);
+            res.status(500).json({ error: 'An error occurred while searching products by category' });
+      });
+  });
+
+
+router.get('/search/price', (req, res) => {
+  const minPrice = req.query.minPrice;
+  const maxPrice = req.query.maxPrice;
+
+  Product
+    .findByPriceRange(minPrice, maxPrice)
+    .then(products => res.json(products))
+});
+
+
+router.get('/search/location/:location', (req, res) => {
+  const location = req.params.location;
+
+  Product
+    .findByLocation(location)
+    .then(products => res.json(products))
+});
+
+
+router.get('/search/name/:name', (req, res) => {
+  const name = req.params.name;
+
+  Product
+    .findByName(name)
+    .then(products => res.json(products))
+});
+
+module.exports = router;
+
+
+
 
 
 
