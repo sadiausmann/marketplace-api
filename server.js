@@ -1,3 +1,6 @@
+const dotenv = reqiure('dotenv')
+dotenv.config()
+
 const express = require('express')
 
 const logger = require('./middlewares/logger')
