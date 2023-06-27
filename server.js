@@ -23,3 +23,12 @@ app.use('/api/sessions', sessionsController)
 // app.get('/api/message', (req, res) => {
 //     res.json({ message: 'Hello from the backend' });
 //   });
+
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path')
+    app.use(express.static(path.join(__dirname, 'build')));
+  
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+  }
