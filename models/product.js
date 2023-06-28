@@ -2,7 +2,13 @@ const db = require("../db/db");
 
 const Product = {
   findAll: () => {
-    const sql = "SELECT * FROM products";
+    const sql = `SELECT products.*, (
+      SELECT ARRAY_AGG(comment)
+      FROM comments
+      WHERE comments.product_id = products.id
+  ) AS comments
+  FROM products;
+  `;
 
     return db.query(sql).then((dbRes) => dbRes.rows);
     //     .then(dbRes => {
@@ -31,14 +37,11 @@ const Product = {
       .then((dbRes) => dbRes.rows[0]);
   },
 
-findSingleProduct: (productId) => {
+  findSingleProduct: (productId) => {
     const sql = "SELECT * FROM products WHERE id = $1";
 
     return db.query(sql, [productId]).then((dbRes) => dbRes.rows[0]);
-  }
-
-
+  },
 };
-
 
 module.exports = Product;

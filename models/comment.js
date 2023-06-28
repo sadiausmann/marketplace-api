@@ -2,7 +2,7 @@ const db = require("../db/db");
 
 const Comment = {
   findAll: () => {
-    const sql = "SELECT * FROM comments";
+    const sql = "SELECT * FROM comments ";
 
     return db.query(sql).then((dbRes) => dbRes.rows);
   },
